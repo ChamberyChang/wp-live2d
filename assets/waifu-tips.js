@@ -64,9 +64,11 @@ function initModel(waifuPath, settingsJson) {
         "height":live2d_settings.waifuTipsSize['height'] + unitType,    //高度
         "top":(0 - live2d_settings.waifuTipTop) + unitType,                  //上方位置可以是负数
         "font-size":live2d_settings.waifuFontSize + unitType,           //字号
-        "border":"1px solid "+live2d_settings.waifuBorderColor,         //边框颜色 固定值是1px实心线条
+        "border-radius": "12px" + live2d_settings.waifuBorderColor,
+        //"border":"1px solid "+live2d_settings.waifuBorderColor,         //边框颜色 固定值是1px实心线条
         "background-color":live2d_settings.waifuTipsColor,              //背景色
-        "box-shadow":"0 3px 15px 2px "+live2d_settings.waifuShadowColor,//影子的颜色 有4个位置默认值
+        "box-shadow": "0px 0px 2px 0px " + live2d_settings.waifuBorderColor + ", " + "0px 2px 2px 0px " + live2d_settings.waifuShadowColor,
+        //"box-shadow":"0 3px 15px 2px "+live2d_settings.waifuShadowColor,//影子的颜色 有4个位置默认值
         "color":live2d_settings.waifuFontsColor                         //字体颜色
     });
     $(".waifu-tool span").hover(function (){
@@ -87,8 +89,24 @@ function initModel(waifuPath, settingsJson) {
     if (live2d_settings.waifuEdgeSide == 'left') $(".waifu").css("left",live2d_settings.waifuEdgeSize + unitType);
     else if (live2d_settings.waifuEdgeSide == 'right') $(".waifu").css("right",live2d_settings.waifuEdgeSize + unitType);
     
-    window.waifuResize = function() { $(window).width() <= live2d_settings.waifuMinWidth ? $(".waifu").hide() : $(".waifu").show(); };
-    if (live2d_settings.waifuMinWidth != 0) { waifuResize(); $(window).resize(function() {waifuResize()}); }
+    window.waifuResize = function() { 
+        //$(window).width() <= live2d_settings.waifuMinWidth ? $(".waifu").hide() : $(".waifu").show(); 
+        if ($(window).width() <= live2d_settings.waifuMinWidth){
+            $(window).resize(function() {
+                var divRatio = live2d_settings.waifuMinWidth - $(window).width();
+                var modelWidth = live2d_settings.waifuSize['width'] - divRatio / 2;
+                var modelHeight = live2d_settings.waifuSize['height'] - divRatio / 2;
+                $("#live2d").css({
+                    "width":modelWidth,
+                    "Height":modelHeight
+                });
+            });
+        }
+    };
+    if (live2d_settings.waifuMinWidth != 0) { 
+        waifuResize(); 
+        $(window).resize(function() {waifuResize()}); 
+    }
     
     try {
         if (live2d_settings.waifuDraggable == 'axis-x') $(".waifu").draggable({ axis: "x", revert: live2d_settings.waifuDraggableRevert });

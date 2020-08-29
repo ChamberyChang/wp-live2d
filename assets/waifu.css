@@ -10,12 +10,21 @@
 .waifu-tips {
     z-index: 21;
     opacity: 0;
+    width: 250px;
+	height: auto;
     margin: -20px 20px;
     padding: 5px 10px;
     /*border: 1px solid rgba(224, 186, 140, 0.62);*/
     border-radius: 12px;
     /*background-color: rgba(236, 217, 188, 0.5);*/
     /*box-shadow: 0 3px 15px 2px rgba(191, 158, 118, 0.2);*/
+    box-sizing: border-box;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, .12),
+    0 2px 2px 0 rgba(0, 0, 0, .24);
+    transition: box-shadow .2s ease;
+    background: #fff;
+    color: #212121;
+    font-size: 12px;
     text-overflow: ellipsis;
     overflow: hidden;
     position: absolute;
@@ -47,6 +56,8 @@
 }*/
 .waifu #live2d{
     position: relative;
+    max-width: max-content;
+    max-height: max-content;
 }
 
 @keyframes shake {
