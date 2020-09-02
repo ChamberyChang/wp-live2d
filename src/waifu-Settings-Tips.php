@@ -14,8 +14,16 @@ class live2D_Settings_Tips {
 
         add_settings_field(
             'showHitokoto', // id
-            __('显示一言','live-2d'), // title
+            __('启用一言','live-2d'), // title
             array( $this, 'showHitokoto_callback' ), // callback
+            'live-2d-settings-tips', // page
+            'live_2d_setting_tips_section' // section
+        );
+
+        add_settings_field(
+            'hitokotoAPI', // id
+            __('一言 API','live-2d'), // title
+            array( $this, 'hitokotoAPI_callback' ), // callback
             'live-2d-settings-tips', // page
             'live_2d_setting_tips_section' // section
         );
@@ -130,9 +138,22 @@ class live2D_Settings_Tips {
 
     public function showHitokoto_callback() {
         ?> <fieldset><?php $checked = ( isset( $this->live_2d__options['showHitokoto'] ) && $this->live_2d__options['showHitokoto'] === true ) ? 'checked' : '' ; ?>
-        <label for="showHitokoto-0"><input type="radio" name="live_2d_settings_option_name[showHitokoto]" id="showHitokoto-0" value="1" <?php echo $checked; ?>> <?php esc_html_e('显示','live-2d') ?></label><br>
+        <label for="showHitokoto-0"><input type="radio" name="live_2d_settings_option_name[showHitokoto]" id="showHitokoto-0" value="1" <?php echo $checked; ?>> <?php esc_html_e('启用','live-2d') ?></label><br>
         <?php $checked = ( isset( $this->live_2d__options['showHitokoto'] ) && $this->live_2d__options['showHitokoto'] === false ) ? 'checked' : '' ; ?>
-        <label for="showHitokoto-1"><input type="radio" name="live_2d_settings_option_name[showHitokoto]" id="showHitokoto-1" value="0" <?php echo $checked; ?>> <?php esc_html_e('隐藏','live-2d') ?></label></fieldset> <?php
+        <label for="showHitokoto-1"><input type="radio" name="live_2d_settings_option_name[showHitokoto]" id="showHitokoto-1" value="0" <?php echo $checked; ?>> <?php esc_html_e('禁用','live-2d') ?></label></fieldset> <?php
+    }
+
+    public function hitokotoAPI_callback() {
+        ?> <select name="live_2d_settings_option_name[hitokotoAPI]" id="hitokotoAPI">
+            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'lwl12.com') ? 'selected' : '' ; ?>
+            <option <?php echo $selected; ?>>lwl12.com</option>
+            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'hitokoto.cn') ? 'selected' : '' ; ?>
+            <option <?php echo $selected; ?>>hitokoto.cn</option>
+            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'jinrishici.com') ? 'selected' : '' ; ?>
+            <option <?php echo $selected; ?>>jinrishici.com</option>
+            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'fghrsh.net') ? 'selected' : '' ; ?>
+            <option <?php echo $selected; ?>>fghrsh.net</option>
+        </select> <?php
     }
 
     public function showF12Status_callback() {

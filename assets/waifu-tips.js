@@ -2,7 +2,7 @@
 window.live2d_settings = Array(); 
 var re = /x/;
 var hltips = 'color:';//定义highlight标记
-console.log(re + 'WP-Live2D 1.7.5');
+console.log(re + 'WP-Live2D 1.7.6');
 
 String.prototype.render = function(context) {
     var tokenReg = /(\\)?\{([^\{\}\\]+)(\\)?\}/g;
@@ -52,6 +52,13 @@ function initModel(waifuPath, settingsJson) {
     
     //设置一个单位为px的文字
     var unitType = 'px';
+
+    /* 判断 JQuery */
+	if($ != null){
+        if (typeof($.ajax) != 'function') typeof(jQuery.ajax) == 'function' ? window.$ = jQuery : console.log('[Error] JQuery is not defined.');
+    }else{
+        window.$ = jQuery;
+    }
 
     /* 加载Live2D容器样式 */
     if ($(window).width() <= live2d_settings.waifuMinWidth) {
@@ -114,7 +121,12 @@ function initModel(waifuPath, settingsJson) {
         }
     };
     if (live2d_settings.waifuMinWidth != 0) { 
-        waifuResize(); 
+        if ($(window).width() <= live2d_settings.waifuMinWidth / 3) {
+            $(".waifu").hide();
+            return;
+        } else {
+            $(".waifu").show();
+        } 
         $(window).resize(function() {waifuResize()}); 
     }
     
@@ -154,10 +166,16 @@ function initModel(waifuPath, settingsJson) {
     if (!live2d_settings.modelStorage || modelId == null) {
         var modelId = live2d_settings.modelId;
         var modelTexturesId = live2d_settings.modelTexturesId;
-    } loadModel(modelId, modelTexturesId,live2d_settings.modelZoomNumberV2, live2d_settings.defineHitAreaName);
+    } loadModel(
+        modelId, 
+        modelTexturesId,
+        live2d_settings.modelZoomNumberV2, 
+        live2d_settings.defineHitAreaName,
+        live2d_settings.sdkUrl
+    );
 }
 
-function loadModel(modelId, modelTexturesId=0,zoom = 1.0 ,hitAreaList = {}) {
+function loadModel(modelId, modelTexturesId=0,zoom = 1.0 ,hitAreaList = {} , sdkUrl = '') {
     if (live2d_settings.modelStorage) {
         localStorage.setItem('modelId', modelId);
         localStorage.setItem('modelTexturesId', modelTexturesId);
@@ -171,10 +189,14 @@ function loadModel(modelId, modelTexturesId=0,zoom = 1.0 ,hitAreaList = {}) {
     }else{
         modelPath = live2d_settings.modelAPI+'get/?id='+modelId+'-'+modelTexturesId;
     }
+    if(sdkUrl == undefined || sdkUrl == null || sdkUrl == ''){
+        sdkUrl = 'https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js';
+    }
     loadlive2d('live2d', modelPath,
-        (live2d_settings.showF12Status ? console.log('[Status]','live2d','模型',modelId+'-'+modelTexturesId,'加载完成'):null),
+        0.5,
         zoom,
-        hitAreaList
+        hitAreaList,
+        sdkUrl
     );
 }
 

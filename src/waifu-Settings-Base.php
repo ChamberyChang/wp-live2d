@@ -46,6 +46,14 @@ class live2D_Settings_Base {
         );
 
         add_settings_field(
+			'sdkUrl', // id
+			__('Cubism Core for Web <br/> 引用地址','live-2d'), // title
+			array( $this, 'sdkUrl_callback' ), // callback
+			'live-2d-settings-base', // page
+			'live_2d_setting_base_section' // section
+		);
+
+        add_settings_field(
 			'defineHitAreaName', // id
 			__('moc3模型自定义动作','live-2d'), // title
 			array( $this, 'defineHitAreaName_callback' ), // callback
@@ -90,6 +98,17 @@ class live2D_Settings_Base {
             <p>'.esc_html__('设置看板娘在画框中的缩放比例，最小1倍，最大10倍，可以有小数点','live-2d').'</p>',
             isset( $this->live_2d__options['modelZoomNumberV2'] ) ? esc_attr( $this->live_2d__options['modelZoomNumberV2']) : '1.0'
         );
+    }
+
+    public function sdkUrl_callback (){
+        printf(
+            '<input class="regular-text" type="text" name="live_2d_settings_option_name[sdkUrl]" id="sdkUrl" value="%s">',
+            isset( $this->live_2d__options['sdkUrl'] ) ? esc_attr( $this->live_2d__options['sdkUrl']) : 'https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js'
+        );
+        echo '<p>'.esc_html__('如未授权请勿修改此地址，擅自修改此地址引发的法律问题与插件作者无关。','live-2d').'</p>
+        <p>'. esc_html__('软件许可协议：', 'live-2d') 
+        .'<a href = "https://www.live2d.com/eula/live2d-proprietary-software-license-agreement_en.html" target="_blank">Live2D Proprietary Software License Agreement</a> 
+        | <a href = "https://www.live2d.com/eula/live2d-open-software-license-agreement_en.html" target="_blank">Live2D Open Software License Agreement</a> </p>';
     }
 
     public function defineHitAreaName_callback(){

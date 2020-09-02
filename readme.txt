@@ -5,7 +5,7 @@ Donate link: https://www.5ri.org
 Tags: Live2D,看板娘,萌,moe,vtuber,comic,anime,live,2d,animation
 Tested up to: 5.5
 Requires at least: 4.6
-Stable tag: 1.7.5
+Stable tag: 1.7.6
 License: MIT
 
 == Description ==
@@ -132,6 +132,14 @@ License: MIT
 None
 
 == Changelog ==
+
+= 1.7.6 =
+
+- 将live2D 4.0 SDK进行动态加载, 避免禁止分发的SDK在页面中加载时间过长 感谢[baysonfox](https://github.com/baysonfox)
+- 修改看板娘最小尺寸逻辑, 当小于指定的最小尺寸时直接退出后续步骤, 停止加载live2D插件渲染(仅在页面重新加载后有效) 感谢[ydecl](https://github.com/ydecl) [Project-458](https://github.com/Project-458) [DogeZen](https://github.com/DogeZen),此功能需要再下个版本继续调整
+- 修复在WP 5.5后台设置报错的问题
+- 修改停用一言选项的文案, 本来这个功能就是禁用功能的~ 感谢[ygdm123](https://github.com/ygdm123)
+- 修复兼容问题 感谢[国木田葉羽](https://github.com/aquausora) [我爱喝北冰洋](https://www.bengalcat.cn/)
 
 = 1.7.5 =
 

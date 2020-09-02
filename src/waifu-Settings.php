@@ -28,6 +28,10 @@ class live2D_Settings{
             $sanitary_values['modelZoomNumberV2'] = number_format($input['modelZoomNumberV2'],1);
 		}
 
+		if ( isset( $input['sdkUrl'] ) ) {
+            $sanitary_values['sdkUrl'] = sanitize_text_field( $input['sdkUrl'] );
+        }
+
         if ( isset( $input['showToolMenu'] ) ) {
             $sanitary_values['showToolMenu'] = (Boolean)$input['showToolMenu'];
         }
@@ -123,6 +127,10 @@ class live2D_Settings{
         if ( isset( $input['waifuMinWidth'] ) ) {
             $sanitary_values['waifuMinWidth'] = (int) $input['waifuMinWidth'] ;
 		}
+
+		if ( isset( $input['waifuMobileDisable'] ) ) {
+            $sanitary_values['waifuMobileDisable'] = (Boolean) $input['waifuMobileDisable'] ;
+		}
 		
 		if ( isset( $input['waifuEdgeSide'] ) ) {
             $sanitary_values['waifuEdgeSide'] = sanitize_text_field( $input['waifuEdgeSide'] );
@@ -200,6 +208,7 @@ class live2D_Settings{
 			$defValue['modelId']='1';
 			$defValue['modelTexturesId']='53';
 			$defValue['modelZoomNumberV2']='1.0';
+			$defValue['sdkUrl']='https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js';
 			$defValue['showToolMenu']=true;
 			$defValue['canCloseLive2d']=true;
 			$defValue['canSwitchModel']=true;
@@ -226,6 +235,7 @@ class live2D_Settings{
 			$defValue['waifuToolLine']=20;
 			$defValue['waifuToolTop']=20;
 			$defValue['waifuMinWidth']=768;
+			//$defValue['waifuMobileDisable']=false;
 			$defValue['waifuEdgeSide']='left';
 			$defValue['waifuEdgeSize']=0;
 			$defValue['waifuDraggable']='axis-x';

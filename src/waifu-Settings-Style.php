@@ -6,7 +6,7 @@ class live2D_Settings_Style {
 
         add_settings_section(
             'live_2d_setting_style_section', // id
-            __('这里可以设置看板娘的外观大小','live-2d'), // title
+            __('这里可以设置看板娘的外观','live-2d'), // title
             array( $this, 'live_2d_style_section_info' ), // callback
             'live-2d-settings-style' // page
         );
@@ -46,15 +46,23 @@ class live2D_Settings_Style {
 
         add_settings_field(
             'waifuMinWidth', // id
-            __('面页小于指定宽度(px) <br/>隐藏看板娘','live-2d'), // title
+            __('面页小于指定宽度(px) <br/>禁用看板娘','live-2d'), // title
             array( $this, 'waifuMinWidth_callback' ), // callback
             'live-2d-settings-style', // page
             'live_2d_setting_style_section' // section
         );
 
+        /*add_settings_field(
+            'waifuMobileDisable',
+            __('是否在移动端加载看板娘','live-2d'),
+            array( $this, 'waifuMobileDisable_callback' ), // callback
+            'live-2d-settings-style', // page
+            'live_2d_setting_style_section' // section
+        );*/
+
         add_settings_field(
             'waifuEdgeSide', // id
-            __('看板娘贴边方向','live-2d'), // title
+            __('看板娘页面边缘','live-2d'), // title
             array( $this, 'waifuEdgeSide_callback' ), // callback
             'live-2d-settings-style', // page
             'live_2d_setting_style_section' // section
@@ -62,7 +70,7 @@ class live2D_Settings_Style {
 
         add_settings_field(
             'waifuEdgeSize', // id
-            __('看板娘贴边距离(px)','live-2d'), // title
+            __('看板娘页面边距(px)','live-2d'), // title
             array( $this, 'waifuEdgeSize_callback' ), // callback
             'live-2d-settings-style', // page
             'live_2d_setting_style_section' // section
@@ -127,16 +135,23 @@ class live2D_Settings_Style {
     public function waifuMinWidth_callback() {
         printf(
             '<input type="number" name="live_2d_settings_option_name[waifuMinWidth]" id="waifuMinWidth" value="%s" min="0" max="1024" />
-            <p>'.esc_html__('设置为 0 时禁用','live-2d').'</p>',
+            <p>'.esc_html__('设置为 0 时，任何大小的屏幕都会启用看板娘','live-2d').'</p>',
             isset( $this->live_2d__options['waifuMinWidth'] ) ? esc_attr( $this->live_2d__options['waifuMinWidth']) : ''
         );
     }
-
+    /*
+    public function waifuMobileDisable_callback(){
+        ?> <fieldset><?php $checked = ( isset( $this->live_2d__options['waifuMobileDisable'] ) && $this->live_2d__options['waifuMobileDisable'] === true ) ? 'checked' : '' ; ?>
+        <label for="waifuMobileDisable-0"><input type="radio" name="live_2d_settings_option_name[waifuMobileDisable]" id="waifuMobileDisable-0" value="1" <?php echo $checked; ?>> <?php esc_html_e('启用','live-2d') ?></label><br>
+        <?php $checked = ( isset( $this->live_2d__options['waifuMobileDisable'] ) && $this->live_2d__options['waifuMobileDisable'] === false ) ? 'checked' : '' ; ?>
+        <label for="waifuMobileDisable-1"><input type="radio" name="live_2d_settings_option_name[waifuMobileDisable]" id="waifuMobileDisable-1" value="0" <?php echo $checked; ?>> <?php esc_html_e('禁用','live-2d') ?></label></fieldset> <?php
+    }
+    */
     public function waifuEdgeSide_callback() {
         ?> <fieldset><?php $checked = ( isset( $this->live_2d__options['waifuEdgeSide'] ) && $this->live_2d__options['waifuEdgeSide'] === 'left' ) ? 'checked' : '' ; ?>
-        <label for="waifuEdgeSide-0"><input type="radio" name="live_2d_settings_option_name[waifuEdgeSide]" id="waifuEdgeSide-0" value="left" <?php echo $checked; ?>> <?php esc_html_e('左','live-2d') ?></label><br>
+        <label for="waifuEdgeSide-0"><input type="radio" name="live_2d_settings_option_name[waifuEdgeSide]" id="waifuEdgeSide-0" value="left" <?php echo $checked; ?>> <?php esc_html_e('靠左','live-2d') ?></label><br>
         <?php $checked = ( isset( $this->live_2d__options['waifuEdgeSide'] ) && $this->live_2d__options['waifuEdgeSide'] === 'right' ) ? 'checked' : '' ; ?>
-        <label for="waifuEdgeSide-1"><input type="radio" name="live_2d_settings_option_name[waifuEdgeSide]" id="waifuEdgeSide-1" value="right" <?php echo $checked; ?>> <?php esc_html_e('右','live-2d') ?></label></fieldset> <?php
+        <label for="waifuEdgeSide-1"><input type="radio" name="live_2d_settings_option_name[waifuEdgeSide]" id="waifuEdgeSide-1" value="right" <?php echo $checked; ?>> <?php esc_html_e('靠右','live-2d') ?></label></fieldset> <?php
     }
 
     public function waifuEdgeSize_callback() {

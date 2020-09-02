@@ -225,7 +225,18 @@ class live2D {
 	
 	public function live_2d_waifu_page_init(){
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker-alpha',plugin_dir_url( __FILE__ ) . '../assets/wp-color-picker-alpha.min.js',array( 'wp-color-picker' ) );
+		wp_register_script( 'wp-color-picker-alpha',plugin_dir_url( __FILE__ ) . '../assets/wp-color-picker-alpha.min.js',array( 'wp-color-picker' ) );
+		$color_picker_strings = array(
+			'clear'            => __( 'Clear' ),
+			'clearAriaLabel'   => __( 'Clear color' ),
+			'defaultString'    => __( 'Default' ),
+			'defaultAriaLabel' => __( 'Select default color'),
+			'pick'             => __( 'Select Color'),
+			'defaultLabel'     => __( 'Color value' ),
+		);
+		wp_localize_script( 'wp-color-picker-alpha', 'wpColorPickerL10n', $color_picker_strings );
+		wp_enqueue_script( 'wp-color-picker-alpha' );
+		
 		// 注册基础设置
         register_setting(
             'live_2d_settings_base_group', // option_group

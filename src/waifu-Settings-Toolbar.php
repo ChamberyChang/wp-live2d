@@ -53,14 +53,6 @@ class live2D_Settings_Toolbar {
         );
 
         add_settings_field(
-            'hitokotoAPI', // id
-            __('一言 API','live-2d'), // title
-            array( $this, 'hitokotoAPI_callback' ), // callback
-            'live-2d-settings-toolbar', // page
-            'live_2d_setting_toolbar_section' // section
-        );
-
-        add_settings_field(
             'canTakeScreenshot', // id
             __('看板娘截图按钮','live-2d'), // title
             array( $this, 'canTakeScreenshot_callback' ), // callback
@@ -171,26 +163,13 @@ class live2D_Settings_Toolbar {
         <label for="canSwitchTextures-0"><input type="radio" name="live_2d_settings_option_name[canSwitchTextures]" id="canSwitchTextures-0" value="1" <?php echo $checked; ?>> <?php esc_html_e('显示','live-2d') ?></label><br>
         <?php $checked = ( isset( $this->live_2d__options['canSwitchTextures'] ) && $this->live_2d__options['canSwitchTextures'] === false ) ? 'checked' : '' ; ?>
         <label for="canSwitchTextures-1"><input type="radio" name="live_2d_settings_option_name[canSwitchTextures]" id="canSwitchTextures-1" value="0" <?php echo $checked; ?>> <?php esc_html_e('隐藏','live-2d') ?></label></fieldset> <?php
-    }
+    } 
 
     public function canSwitchHitokoto_callback() {
         ?> <fieldset><?php $checked = ( isset( $this->live_2d__options['canSwitchHitokoto'] ) && $this->live_2d__options['canSwitchHitokoto'] === true ) ? 'checked' : '' ; ?>
         <label for="canSwitchHitokoto-0"><input type="radio" name="live_2d_settings_option_name[canSwitchHitokoto]" id="canSwitchHitokoto-0" value="1" <?php echo $checked; ?>> <?php esc_html_e('显示','live-2d') ?></label><br>
         <?php $checked = ( isset( $this->live_2d__options['canSwitchHitokoto'] ) && $this->live_2d__options['canSwitchHitokoto'] === false ) ? 'checked' : '' ; ?>
         <label for="canSwitchHitokoto-1"><input type="radio" name="live_2d_settings_option_name[canSwitchHitokoto]" id="canSwitchHitokoto-1" value="0" <?php echo $checked; ?>> <?php esc_html_e('隐藏','live-2d') ?></label></fieldset> <?php
-    }
-
-    public function hitokotoAPI_callback() {
-        ?> <select name="live_2d_settings_option_name[hitokotoAPI]" id="hitokotoAPI">
-            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'lwl12.com') ? 'selected' : '' ; ?>
-            <option <?php echo $selected; ?>>lwl12.com</option>
-            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'hitokoto.cn') ? 'selected' : '' ; ?>
-            <option <?php echo $selected; ?>>hitokoto.cn</option>
-            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'jinrishici.com') ? 'selected' : '' ; ?>
-            <option <?php echo $selected; ?>>jinrishici.com</option>
-            <?php $selected = (isset( $this->live_2d__options['hitokotoAPI'] ) && $this->live_2d__options['hitokotoAPI'] === 'fghrsh.net') ? 'selected' : '' ; ?>
-            <option <?php echo $selected; ?>>fghrsh.net</option>
-        </select> <?php
     }
 
     public function canTakeScreenshot_callback() {
