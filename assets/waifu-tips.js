@@ -54,10 +54,20 @@ function initModel(waifuPath, settingsJson) {
     var unitType = 'px';
 
     /* 加载Live2D容器样式 */
-    $("#live2d").attr({
-        "width":live2d_settings.waifuSize['width'],
-        "height":live2d_settings.waifuSize['height']
-    });
+    if ($(window).width() <= live2d_settings.waifuMinWidth) {
+        var initDivRatio = live2d_settings.waifuMinWidth - $(window).width();
+        var initModelWidth = live2d_settings.waifuSize['width'] - initDivRatio / 2;
+        var initModelHeight = live2d_settings.waifuSize['height'] - initDivRatio / 2;
+        $("#live2d").attr({
+            "width": initModelWidth,
+            "Height": initModelHeight
+        });
+    } else {
+        $("#live2d").attr({
+            "width":live2d_settings.waifuSize['width'],
+            "height":live2d_settings.waifuSize['height']
+        });
+    }
     //----------从JSON中获取颜色定义----------
     $(".waifu-tips").css({
         "width":live2d_settings.waifuTipsSize['width'] + unitType,      //宽度
